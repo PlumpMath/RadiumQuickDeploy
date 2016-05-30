@@ -1,0 +1,27 @@
+﻿<Window x:Class="RadiumQuickDeploy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RadiumQuickDeploy"
+        mc:Ignorable="d"
+        Title="Radium Wallet Quick Deploy" Height="250" Width="500">
+    <Grid>
+        <Image x:Name="backgroundImage" HorizontalAlignment="Left" Height="250" VerticalAlignment="Top" Width="500" Source="Resources/base.jpg" Stretch="Fill"/>
+        <Button x:Name="installButton" Content="Install" Tag="1" HorizontalAlignment="Center" Height="50" VerticalAlignment="Center" Width="450" Margin="0,65,0,0" FontSize="25" Foreground="Silver" Background="{x:Null}" BorderBrush="Silver" Click="installButton_Click_1" >
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{x:Null}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Label x:Name="label1" Content="Radium Wallet Quick Deploy" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,0,0,0" FontSize="36" Foreground="#FFA60F90" />
+        <Label x:Name="label2" Content="The fastest way to install the Radium Wallet" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,42,0,0" FontSize="18" FontStyle="Italic" Foreground="#FFA60F90" />
+        <Label x:Name="statusLabel" Content="Status" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,80,0,0" FontSize="18" FontStyle="Italic" Foreground="Silver" Visibility="Hidden" />
+
+    </Grid>
+</Window>
