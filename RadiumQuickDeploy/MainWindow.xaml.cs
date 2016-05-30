@@ -22,6 +22,31 @@ namespace RadiumQuickDeploy
             InitializeComponent();
         }
 
+    public bool OutputDll()
+        {
+
+            //downloads needed Newtonsof.dll
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    client.Headers.Add("user-agent", "Mozilla / 4.0(compatible; MSIE 6.0; Windows NT 5.2;)");
+                    client.DownloadFile(new Uri("https://github.com/JJ12880/Rapid_Deploy/releases/download/1.0/Newtonsoft.Json.dll"),
+                       Directory.GetCurrentDirectory() + "\\Newtonsoft.Json.dll");
+                }
+            }
+            catch (Exception e)
+            {
+                if (File.Exists(Directory.GetCurrentDirectory() + "\\Newtonsoft.Json.dll"))
+                {
+                    File.Delete(Directory.GetCurrentDirectory() + "\\Newtonsoft.Json.dll");
+                }
+                return false;
+            }
+            return true;
+
+        }
+
         public bool OutputData()
         {
             bool zipDone = false;
@@ -183,8 +208,20 @@ namespace RadiumQuickDeploy
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
 
+            msg = "Downloading Dependencies";
+            dynamic d = Task<bool>.Factory.StartNew(() => OutputDll());
+            do
+            {
+                Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new Action(delegate { }));
+            } while (d.IsCompleted == false);
+            if (!d.Result)
+            {
+                MessageBox.Show("Download Failed. Application must exit.");
+                Application.Current.Shutdown();
+            }
+
             msg = "Downloading Install Data";
-            dynamic d = Task<bool>.Factory.StartNew(() => OutputData());
+            d = Task<bool>.Factory.StartNew(() => OutputData());
             do
             {
                 Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new Action(delegate { }));
